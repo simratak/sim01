@@ -1,0 +1,28 @@
+package co.reverse;
+
+public class Reverse {
+	
+	public static void main(String [] args) {
+	
+	System.out.println("The original string= Hello");
+	
+	String name="Hello";
+	String reverse="";
+	char c;
+	int count=0;
+	
+	for(int i=name.length()-1; i>=0; i--) {
+		c=name.charAt(i);
+		reverse= reverse+c;
+		
+		if(c=='a' || c=='e' || c=='i'||c=='o'||c=='u') {
+			count++;
+		}
+
+	}
+	
+	System.out.println("The reversed string is " +reverse);
+	System.out.println(count);
+	
+	}
+}
