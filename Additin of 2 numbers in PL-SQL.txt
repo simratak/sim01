@@ -1,0 +1,37 @@
+
+SQL> set serveroutput on;
+SQL> /
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  num1 number:=10;
+  3  num2 number:=20;
+  4  num3 number:=num1+num2;
+  5  begin
+  6  dbms_output.put_line('the addition of two numbers is '||num3);
+  7* end;
+SQL> /
+the addition of two numbers is 30
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  num1 number:=&v_num1;
+  3  num2 number:=&v_num2;
+  4  num3 number;
+  5  begin
+  6  num3:=num1+num2;
+  7  dbms_output.put_line('the sum of two numbers is '||num3);
+  8  end;
+  9  /
+Enter value for v_num1: 10
+old   2: num1 number:=&v_num1;
+new   2: num1 number:=10;
+Enter value for v_num2: 20
+old   3: num2 number:=&v_num2;
+new   3: num2 number:=20;
+the sum of two numbers is 30
+
+PL/SQL procedure successfully completed.
