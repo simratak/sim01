@@ -1,0 +1,67 @@
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  e1 exception;
+  3  begin
+  4  delete from dept where deptno=&v_deptno;
+  5  if sql%notfound then
+  6     raise e1;
+  7  end if;
+  8  exception
+  9  when e1 then
+ 10  dbms_output.put_line('no data found');
+ 11  dbms_output.put_line(SQLERRM);
+ 12* end;
+SQL> /
+Enter value for v_deptno: 1
+old   4: delete from dept where deptno=&v_deptno;
+new   4: delete from dept where deptno=1;
+no data found
+User-Defined Exception
+
+PL/SQL procedure successfully completed.
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  v_name emp.ename%type;
+  3  begin
+  4  select ename into v_name from emp where empno=&v_enmpno;
+  5  raise_application_error(-20001,'no data found');
+  6  dbms_output.put_line(SQLERRM);
+  7* end;
+SQL> /
+Enter value for v_enmpno: 1
+old   4: select ename into v_name from emp where empno=&v_enmpno;
+new   4: select ename into v_name from emp where empno=1;
+declare
+*
+ERROR at line 1:
+ORA-01403: no data found
+ORA-06512: at line 4
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1      declare
+  2      v_name emp.ename%type;
+  3      begin
+  4      select ename into v_name from emp where empno=&v_enmpno;
+  5  exception when no_data_found then
+  6      raise_application_error(-20020,'no data found');
+  7      dbms_output.put_line(SQLERRM);
+  8*     end;
+  9  /
+Enter value for v_enmpno: 1
+old   4:     select ename into v_name from emp where empno=&v_enmpno;
+new   4:     select ename into v_name from emp where empno=1;
+    declare
+*
+ERROR at line 1:
+ORA-20020: no data found
+ORA-06512: at line 6

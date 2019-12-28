@@ -1,0 +1,26 @@
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace function f1(a in number, b in number)
+  2  return number
+  3  is
+  4  c number;
+  5  begin
+  6  c:=a+b;
+  7  return(c);
+  8* end;
+SQL> /
+
+Function created.
+
+SQL> variable z number
+SQL> execute :z:=f1(10,20);
+
+PL/SQL procedure successfully completed.
+
+SQL> print z
+
+         Z
+----------
+        30
