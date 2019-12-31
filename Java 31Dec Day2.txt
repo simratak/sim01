@@ -1,0 +1,123 @@
+Inheritance.
+
+1. class Employee{
+	float salary=40000;
+}
+class Programmer extends Employee{
+	int bonus=10000;
+	public static void main(String[] args) {
+		Programmer p=new Programmer();
+		System.out.println("Programmer salary is: "+p.salary);
+		System.out.println("Bonus of Programmer is: "+p.bonus);
+	}
+
+}
+
+O/P:
+Programmer salary is: 40000.0
+Bonus of Programmer is: 10000
+
+
+2. class Animal{  
+void eat(){
+	System.out.println("Eating!");}  
+}  
+class Dog extends Animal{  
+void bark(){
+	System.out.println("Barking!");}  
+}  
+class TestInheritance{  
+public static void main(String[] args){  
+Dog d=new Dog();  
+d.bark();  
+d.eat();  
+}
+}  
+
+O/P:
+Barking!
+Eating!
+
+
+3. 
+class Animal{  
+void eat(){
+	System.out.println("Eating!");}  
+}  
+class Dog extends Animal{  
+void bark(){
+	System.out.println("Barking!");}  
+}  
+class BabyDog extends Dog{
+	void weep() {
+		System.out.println("Weeping!");} 
+	}
+
+class TestInheritance{  
+public static void main(String[] args){  
+BabyDog d=new BabyDog();  
+d.bark();  
+d.eat();
+d.weep();
+}
+}  
+
+O/P:
+Barking!
+Eating!
+Weeping!
+
+
+Overloading.
+
+4. class Adding{
+	static int add(int a, int b) {
+		return a+b;
+	}
+	
+	static int add(int a, int b, int c) {
+		return a+b+c;
+	}
+}
+class TestOverloading {
+
+	public static void main(String[] args) {
+		System.out.println(Adding.add(11, 12));
+		System.out.println(Adding.add(11,12,13));
+	}
+}
+
+O/P:
+23
+36
+
+
+5. class TestOverloading{  
+public static void main(String[] args){System.out.println("main with String[]");}  
+public static void main(String args){System.out.println("main with String");}  
+public static void main(){System.out.println("main without args");}  
+}  
+
+O/P:
+main with String[]
+
+
+Overriding.
+
+6. class Vehicle1{  
+  void run(){System.out.println("Vehicle is running");}  
+}  
+class Vehicle extends Vehicle1{   
+  void run(){System.out.println("Bike is running safely");}  
+  
+  public static void main(String args[]){  
+	Vehicle obj = new Vehicle(); 
+    obj.run();
+  }  
+}  
+
+O/P:
+Bike is running safely
+
+
+ 

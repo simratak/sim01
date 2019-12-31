@@ -1,0 +1,196 @@
+Q1. Create a class called Account with the data members-accno, name, phoneno, balance with the following methods- getinput(), deposit(), withdraw().
+
+import java.util.Scanner;
+
+public class Account {
+	int accno;
+	String name;
+	long phoneno;
+	float bal=0;
+	int amount;
+	int withdraw;
+	
+	Scanner sc=new Scanner(System.in);
+	
+	
+	void getinput() {
+		System.out.println("Enter your account number, name, phone number: ");
+		accno=sc.nextInt();
+		name=sc.next();
+		phoneno=sc.nextLong();
+		System.out.println("Account no: "+accno+" Name: "+name+" Phone no.: "+phoneno+" Balance: "+bal);
+	}
+	
+	void deposit() {
+		System.out.println("Enter the amount to be deposited: ");
+		amount=sc.nextInt();
+		bal=bal+amount;
+		System.out.println("Money deposited. Your current balance is: "+bal);
+	}
+	
+	void withdraw1() {
+		System.out.println("Enter amount to be withdrawn: ");
+		withdraw=sc.nextInt();
+		bal=bal-withdraw;
+		System.out.println("Money withdrawn. your current balance is: "+ bal);
+	}
+	
+	public static void main(String[] args) {
+		
+		Account a1= new Account();
+		a1.getinput();
+	
+		Scanner s=new Scanner(System.in);
+		while(true)
+		{
+		int num;
+		System.out.println("Menu: 1. Deposit Money.\n 2. Withdraw Money.\n 3. Exit.");
+		num=s.nextInt();
+		
+		switch(num)
+		{
+		case 1:
+		a1.deposit();
+		break;
+		case 2:
+		a1.withdraw1();
+		break;
+		case 3:
+		System.out.println("You exited the menu.");
+		}
+	}
+	}
+}
+
+O/P:
+Enter your account number, name, phone number: 
+7500
+Sim
+9898989898
+Account no: 7500 Name: Sim Phone no.: 9898989898 Balance: 0.0
+Menu: 1. Deposit Money.
+ 2. Withdraw Money.
+ 3. Exit.
+1
+Enter the amount to be deposited: 
+5000
+Money deposited. Your current balance is: 5000.0
+Menu: 1. Deposit Money.
+ 2. Withdraw Money.
+ 3. Exit.
+1
+Enter the amount to be deposited: 
+500
+Money deposited. Your current balance is: 5500.0
+Menu: 1. Deposit Money.
+ 2. Withdraw Money.
+ 3. Exit.
+1
+Enter the amount to be deposited: 
+500
+Money deposited. Your current balance is: 6000.0
+Menu: 1. Deposit Money.
+ 2. Withdraw Money.
+ 3. Exit.
+2
+Enter amount to be withdrawn: 
+550
+Money withdrawn. your current balance is: 5450.0
+Menu: 1. Deposit Money.
+ 2. Withdraw Money.
+ 3. Exit.
+2
+Enter amount to be withdrawn: 
+500
+Money withdrawn. your current balance is: 4950.0
+Menu: 1. Deposit Money.
+ 2. Withdraw Money.
+ 3. Exit.
+3
+You exited the menu.
+
+
+Q2. Create a class to hold information about books.
+
+import java.util.Scanner;
+
+class Book {
+	String title;
+	String author;
+	double cost;
+	int no_of_books;
+
+	public Book(String title, String author, double cost, int no_of_books) {
+		this.title = title;
+		this.author = author;
+		this.cost = cost;
+		this.no_of_books = no_of_books;
+	}
+
+	void display() {
+		System.out.println("Title: " + title + ", Author: " + author);
+		System.out.println("Cost: " + cost);
+	}
+}
+
+public class Books {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter data for books.");
+		Book x[] = new Book[3];
+		
+		for (int i = 0; i < 3; i++) {
+			System.out.print("Enter title: ");
+			String title = sc.next();
+			System.out.print("Enter author: ");
+			String author = sc.next();
+			System.out.print("Enter cost: ");
+			double cost = sc.nextDouble();
+			System.out.print("Enter no of books: ");
+			int no_of_books = sc.nextInt();
+			x[i] = new Book(title, author, cost, no_of_books);
+		}
+
+		System.out.print("\nEnter title to search: ");
+		String title = sc.next();
+		System.out.print("Enter no of books required: ");
+		int no_of_books = sc.nextInt();
+
+		boolean found = false;
+		for (int i = 0; i < 3; i++) {
+			if (title.equals(x[i].title) && (no_of_books <= x[i].no_of_books)) {
+				found = true;
+				x[i].display();
+				System.out.println("Books are sufficient.");
+				System.out.println("Total cost of books: " + (x[i].cost * no_of_books));
+			}
+		}
+
+		if (found == false) {
+			System.out.println("No books found.");
+		}
+	}
+}
+
+O/P:
+Enter data for books.
+Enter title: hello
+Enter author: roth
+Enter cost: 100
+Enter no of books: 4
+Enter title: divergent
+Enter author: veronica
+Enter cost: 200
+Enter no of books: 2
+Enter title: stars
+Enter author: riley
+Enter cost: 300
+Enter no of books: 5
+
+Enter title to search: hello
+Enter no of books required: 2
+Title: hello, Author: roth
+Cost: 100.0
+Books are sufficient.
+Total cost of books: 200.0
+
