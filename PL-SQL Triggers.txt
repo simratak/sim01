@@ -1,0 +1,189 @@
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger secure_emp
+  2  before insert on emp
+  3  begin
+  4  if (to_char(sysdate,'DY') in ('SAT','SUN')) or
+  5  (to_char(sysdate,'HH24:MI')
+  6  not between '08:00' AND '18.00') then
+  7  raise_application_error(-20500, 'You insert ' || 'into emp table only during ' || 'normal business hours.');
+  8  end if;
+  9* end;
+SQL> /
+
+Trigger created.
+
+SQL> insert into emp values(1, 'Sam', 'Sales', 7899, '03-01-2020', 50000, 1000, 10);
+insert into emp values(1, 'Sam', 'Sales', 7899, '03-01-2020', 50000, 1000, 10)
+*
+ERROR at line 1:
+ORA-20500: You insert into emp table only during normal business hours.
+ORA-06512: at "SCOTT.SECURE_EMP", line 5
+ORA-04088: error during execution of trigger 'SCOTT.SECURE_EMP'
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger restrict_salary
+  2  before insert or update of sal on emp
+  3  for each row
+  4  begin
+  5  if not(:new.job in ('analyst', 'president'))
+  6  and :new.sal in (5000,3000) then
+  7  raise_application_error (-20202, 'Employee cannot earn more than $15,000.');
+  8  end if;
+  9* end;
+SQL> /
+
+Trigger created.
+
+SQL> update emp set sal=5000 where ename='SMITH';
+update emp set sal=5000 where ename='SMITH'
+       *
+ERROR at line 1:
+ORA-20202: Employee cannot earn more than $15,000.
+ORA-06512: at "SCOTT.RESTRICT_SALARY", line 4
+ORA-04088: error during execution of trigger 'SCOTT.RESTRICT_SALARY'
+
+
+SQL> alter trigger restrict_salary disable;
+
+Trigger altered.
+
+
+SQL> update emp set sal=5000 where ename='SMITH';
+
+1 row updated.
+
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1      create or replace trigger audit_emp_values
+  2      after delete or insert or update on emp
+  3      for each row
+  4      begin
+  5      insert into audit_emp(user_name, time_stamp, id, old_last_name, new_last_name, old_title, new_title, old_salary, new_salary)
+  6      values(user, sysdate, :old.empno, :old.ename, :new.ename, :old.job, :new.job, :old.sal, :new.sal);
+  7*    end;
+SQL> /
+
+Trigger created.
+
+SQL> insert into emp values(0003, 'MIKE', 'SALES', 7899, sysdate, 1000, 500, 30);
+
+1 row created.
+
+SQL> select * from audit_emp;
+
+USER_NAME            TIME_STAM         ID OLD_LAST_NAME        NEW_LAST_NAME        OLD_TITLE
+-------------------- --------- ---------- -------------------- -------------------- --------------------
+NEW_TITLE            OLD_SALARY NEW_SALARY
+-------------------- ---------- ----------
+SCOTT                03-JAN-20                                 SAM
+SALES
+
+SCOTT                03-JAN-20          1 SAM                  SAM                  SALES
+SALES                      1000       1000
+
+SCOTT                03-JAN-20                                 SAM
+SALES
+
+SCOTT                03-JAN-20          2 SAM                  SAM                  SALES
+SALES                      1000       1000
+
+SCOTT                03-JAN-20          2 SAM                  SAM                  SALES
+SALES                      2000       2000
+
+SCOTT                03-JAN-20                                 MIKE
+SALES                                 1000
+
+
+6 rows selected.
+
+SQL> update emp set sal=5000, ename='MIKEY' where empno=3;
+
+1 row updated.
+
+SQL> select * from audit_emp;
+
+USER_NAME            TIME_STAM         ID OLD_LAST_NAME        NEW_LAST_NAME        OLD_TITLE
+-------------------- --------- ---------- -------------------- -------------------- --------------------
+NEW_TITLE            OLD_SALARY NEW_SALARY
+-------------------- ---------- ----------
+SCOTT                03-JAN-20                                 SAM
+SALES
+
+SCOTT                03-JAN-20          1 SAM                  SAM                  SALES
+SALES                      1000       1000
+
+SCOTT                03-JAN-20                                 SAM
+SALES
+
+SCOTT                03-JAN-20          2 SAM                  SAM                  SALES
+SALES                      1000       1000
+
+SCOTT                03-JAN-20          2 SAM                  SAM                  SALES
+SALES                      2000       2000
+
+SCOTT                03-JAN-20                                 MIKE
+SALES                                 1000
+
+SCOTT                03-JAN-20          3 MIKE                 MIKEY                SALES
+SALES                      1000       5000
+
+
+7 rows selected.
+
+
+
+SQL> create table log_trig_table(user_id varchar2(30), log_date date, action varchar2(30));
+
+Table created.
+
+SQL>   create or replace trigger logon_trig
+  2      after logon on schema
+  3      begin insert into log_trig_table(user_id, log_date, action)
+  4      values(user, sysdate, 'Logging on');
+  5     end;
+  6  /
+
+Trigger created.
+
+SQL>  create or replace trigger logoff_trig
+  2      before logoff on schema
+  3      begin insert into log_trig_table(user_id, log_date, action)
+  4      values(user, sysdate, 'Logging off');
+  5     end;
+  6  /
+
+Trigger created.
+
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+C:\Users\lab365>sqlplus
+
+SQL*Plus: Release 11.2.0.1.0 Production on Fri Jan 3 22:49:27 2020
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: scott
+Enter password:
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> select * from log_trig_table;
+
+USER_ID                        LOG_DATE  ACTION
+------------------------------ --------- ------------------------------
+SCOTT                          03-JAN-20 Logging off
+SCOTT                          03-JAN-20 Logging on
+
+
