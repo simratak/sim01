@@ -1,0 +1,100 @@
+a=0
+while a<10:
+    print('a=',a)
+    a=a+1 #shortcut a+=1
+          #no primitive data types so a++ doesn't work
+
+O/P:
+a= 0
+a= 1
+a= 2
+a= 3
+a= 4
+a= 5
+a= 6
+a= 7
+a= 8
+a= 9
+
+
+s='python'
+b=0
+while b<len(s):
+    print('b=',s[b])
+    b+=1
+line='-'*40
+print(line)
+
+O/P:
+b= p
+b= y
+b= t
+b= h
+b= o
+b= n
+----------------------------------------
+
+L=['FN','LN','ADR','a1','FN','ADR','a2','FN']
+i=0
+while i<len(L):
+    if L[i]=='ADR':
+        i=i+1
+        print(L[i])
+        i=i+1
+    else:
+        i=i+1
+print(line)
+j=0
+while j<len(L):
+    if L[j].startswith('a'):
+        print('Found', L[j])
+        break
+    else:
+        j=j+1
+else:
+    print('Not Found')
+print(line)
+k=0
+while k<len(L):
+    if not L[k].startswith('a'):
+        k=k+1
+        continue
+    print(L[k])
+    k=k+1
+    print('Last statement of while')
+print(line)
+
+O/P:
+a1
+a2
+----------------------------------------
+Found a1
+----------------------------------------
+a1
+Last statement of while
+a2
+Last statement of while
+----------------------------------------
+
+
+cart=[]
+while True:
+    i=input('Enter item: ') #taking the value of the item from the user
+    cart.append(i) #adding the item to the list
+    ch=input('Quit(y/n)?: ')
+    if ch=='y':
+        print('cart= ',cart)
+        break
+print(line)
+
+O/P:
+Enter item: Books
+Quit(y/n)?: n
+Enter item: Chocolates
+Quit(y/n)?: y
+cart=  ['Books', 'Chocolates']
+----------------------------------------
+
+
+
+

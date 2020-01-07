@@ -1,0 +1,24 @@
+#eval is expecting a string, it will take the value inside the single quotes as the expression as execute it and return the output of it
+a='10'
+b=int(a) #converts to int
+c=eval(a) #converting the data type
+print(a,b,c)
+d='[10,20,30]'
+e='Hello'
+f=list(e) #converting to list
+print(f)
+g=list(d)
+print(g)
+h=eval(d)
+print('h=',h)
+i=10
+j=20
+k=eval('i+j')
+print('k=',k)
+
+O/P:
+10 10 10
+['H', 'e', 'l', 'l', 'o']
+['[', '1', '0', ',', '2', '0', ',', '3', '0', ']']
+h= [10, 20, 30]
+k= 30

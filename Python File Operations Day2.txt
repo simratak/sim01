@@ -1,0 +1,166 @@
+#'w'-> write only
+#'r'-> read only
+#'a'-> append only
+#'w+'->WR
+#'r+'->RW
+#'a+'->AR
+
+#Binary Files
+#'wb'-> write only
+#'rb'-> read only
+#'ab'-> append only
+#'w+b'->WR
+#'r+b'->RW
+#'a+b'->AR
+
+
+F1=open('out1.txt','w') #w-> write only
+                        #first argument is file_name or file_path
+                        #second argument is mode, i.e in which mode you want to open the file
+                        #in w mode, if the file is not there it will be 1
+                        #in w mode,if there is a existing file, it will create a new file by erasing the previous file
+
+#two ways to write in a text file
+#first way to write
+x=10
+s='python\n'
+x=str(x)+'\n'
+F1.write(x) #write function does not provide a new line, need to write \n manually
+            #data is not directly written in the text file, first it is written in buffer. when we close the file connections then only it will write
+            #python implicitly closes the connection so we can see the output without closing the connection
+F1.write(s)
+F1.flush()  #flush() is transferring the data to the text file without closing the connection
+lines='-'*40
+print(lines)
+
+#second way to write
+L=[x,s]
+F1.writelines(L)
+F1.close()
+
+#reading a text file
+#first way to read
+#if no file exists, it will not create any file
+F2=open('out1.txt','r') #r-> read only
+r1=F2.read() #the data is read like: '10\npython\n10\npython' i.e 'line\nline\nline\n' and printed in separate lines because print() executes \n as a new line
+             #read() returns the output as a string
+print('r1=',r1)
+
+#seek pointer is at the beginning at the first time, second time it's at the end and nothing is there after that to read
+F2.seek(0) #pointing the pointer back to the start of the file i.e at the 0th position
+print(lines)
+
+r2=F2.read()
+print('r2=',r2)
+
+F2.seek(0)
+print(lines)
+
+#second way to read
+r3=F2.readline() #reading line by line
+print('r3=',r3)
+while True:
+    line=F2.readline()
+    if line=='': #EOF(end of file)
+        break
+    else:
+        print('line=',line)
+
+F2.seek(0)
+print(lines)
+
+#third way to read
+r4=F2.readlines() #readlines() reads the complete file, returns as a list
+print('r4=',r4)
+r5=[]
+for l in r4:
+    l=l.strip()
+    r5.append(l)
+print('r5=',r5)
+
+F2.seek(0)
+print(lines)
+
+for x in F2: #for loop will take care of calling the readline in each iteration
+    print('line=',x)
+print(lines)
+
+F2.seek(0)
+r6=list(F2)
+print('r6=',r6)
+F2.seek(0)
+r7=tuple(F2)
+print('r7=',r7)
+print(lines)
+
+L1=['h1','h2']
+L2=['ip1','ip2']
+D1=dict(zip(L1,L2))
+print('D1=',D1)
+print(lines)
+
+e=enumerate(L1) #if you pass any collection, for each element it will give index starting from 0, creating a tuple
+print(list(e))
+print(lines)
+
+F2.seek(0)
+D2=dict(enumerate(F2))
+print('D2=',D2)
+F2.close()
+print(lines)
+
+F3=open('out1.txt','a') #a-> append only mode
+#if the file is available it will use the same file
+#if file not present, it will create a new one
+F4=open('out2.csv','a') #ideally csv file means comma separated values, but can use any delimiter
+print(20,'java',sep='\n',file=F3,flush=True) #can write in a file using the print()
+                                 #default flush is False
+print(20,'java',sep=',',file=F4)
+F3.close()
+F4.close()
+
+
+O/P:
+----------------------------------------
+r1= 10
+python
+10
+python
+
+----------------------------------------
+r2= 10
+python
+10
+python
+
+----------------------------------------
+r3= 10
+
+line= python
+
+line= 10
+
+line= python
+
+----------------------------------------
+r4= ['10\n', 'python\n', '10\n', 'python\n']
+r5= ['10', 'python', '10', 'python']
+----------------------------------------
+line= 10
+
+line= python
+
+line= 10
+
+line= python
+
+----------------------------------------
+r6= ['10\n', 'python\n', '10\n', 'python\n']
+r7= ('10\n', 'python\n', '10\n', 'python\n')
+----------------------------------------
+D1= {'h1': 'ip1', 'h2': 'ip2'}
+----------------------------------------
+[(0, 'h1'), (1, 'h2')]
+----------------------------------------
+D2= {0: '10\n', 1: 'python\n', 2: '10\n', 3: 'python\n'}
+----------------------------------------

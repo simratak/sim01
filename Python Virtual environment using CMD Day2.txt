@@ -1,0 +1,56 @@
+Creating a Virtual Environment using Windows Command Line Prompt:
+
+Microsoft Windows [Version 10.0.16299.64]
+(c) 2017 Microsoft Corporation. All rights reserved.
+
+C:\Users\lab365>cd ..
+
+C:\Users>cd ..
+
+C:\>cd Python training
+
+C:\Python Training>dir
+ Volume in drive C has no label.
+ Volume Serial Number is 66BA-427A
+
+ Directory of C:\Python Training
+
+01/06/2020  07:57 PM    <DIR>          .
+01/06/2020  07:57 PM    <DIR>          ..
+01/06/2020  08:08 PM    <DIR>          Anaconda
+01/06/2020  02:58 AM    <DIR>          bin
+01/05/2020  08:19 PM    <DIR>          lib
+01/05/2020  08:19 PM    <DIR>          log
+01/05/2020  08:19 PM    <DIR>          releases
+               0 File(s)              0 bytes
+               7 Dir(s)  799,262,584,832 bytes free
+
+C:\Python Training>python -m venv myvenv1
+
+C:\Python Training>dir
+ Volume in drive C has no label.
+ Volume Serial Number is 66BA-427A
+
+ Directory of C:\Python Training
+
+01/06/2020  08:12 PM    <DIR>          .
+01/06/2020  08:12 PM    <DIR>          ..
+01/06/2020  08:08 PM    <DIR>          Anaconda
+01/06/2020  02:58 AM    <DIR>          bin
+01/05/2020  08:19 PM    <DIR>          lib
+01/05/2020  08:19 PM    <DIR>          log
+01/06/2020  08:12 PM    <DIR>          myvenv1
+01/05/2020  08:19 PM    <DIR>          releases
+               0 File(s)              0 bytes
+               8 Dir(s)  799,247,052,800 bytes free
+
+C:\Python Training>cd myvenv1
+
+C:\Python Training\myvenv1>cd scripts
+
+C:\Python Training\myvenv1\Scripts>activate
+
+(myvenv1) C:\Python Training\myvenv1\Scripts>deactivate
+C:\Python Training\myvenv1\Scripts>activate
+
+(myvenv1) C:\Python Training\myvenv1\Scripts>
