@@ -1,0 +1,41 @@
+#dict->class
+#dictionary is not indexed, need to explicitly provide the index (can be any immutable value)
+#contains a {key:value} pair
+
+D={'course':'python', 'dur':10,'loc':'blr'}
+print(D['course'])
+
+#add or update
+D['course']=['C++','Java'] #if the key is not avaiable it will add 1 and then update the next key
+print(D['course'])
+
+E=D.copy()
+
+#remove
+r1=D.pop('course')
+print('pop=',r1, D)
+
+del D['dur']
+print('after delete=',D)
+
+r2=D.popitem()
+print('r2=',r2,D)
+
+#some other methods
+K=E.keys()
+V=E.values()
+i=E.items()
+print(K,V,i,sep='\n')
+
+
+O/P:
+====================== RESTART: C:/Python Training/bin/dictionary_ex.py =====================
+python
+['C++', 'Java']
+pop= ['C++', 'Java'] {'dur': 10, 'loc': 'blr'}
+after delete= {'loc': 'blr'}
+r2= ('loc', 'blr') {}
+dict_keys(['course', 'dur', 'loc'])
+dict_values([['C++', 'Java'], 10, 'blr'])
+dict_items([('course', ['C++', 'Java']), ('dur', 10), ('loc', 'blr')])
+>>> 

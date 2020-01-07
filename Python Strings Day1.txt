@@ -1,0 +1,192 @@
+a='Person'
+print(a)
+
+b="Person's"
+print(b)
+
+c='''Person's Height XYZ"'''
+print(c)
+
+d="""Person"""
+print(b,c,d,sep='\n')
+
+s1='Hello'
+s2='PY'
+s3=s1+s2
+s4=s1*10
+print(s3,s4)
+
+line='-'*40
+print(line)
+
+e='Person\'s'
+print(e)
+
+f=r'C:\newfolder\test.py'
+print(f)
+
+g='WEL COME'
+print(g)
+print(len(g))
+print(g[1])
+print(g[1:6])
+print(g[1:])
+print(g[:6])
+print(g[:])
+
+h=g[:]
+print(id(h),id(g))
+
+#Step
+print(g[1:6:1])
+print(g[1:6:2])
+
+print(g[::-1])
+
+print(g[6:1:-2])
+print(g[1:6:-2])
+
+#negative index
+print(g[-7:-2])
+
+print(g[len(g)-4:])
+print(g[-4:])
+
+i=10
+j=str(i)
+k=str('python')
+print(i,j,k,sep='\n')
+
+r1=g.startswith('WEL')
+print('r1= ',r1)
+r2=g.endswith('ME')
+print('r2= ',r2)
+
+r3=g.isupper()
+r4=g.upper()
+print(r3,r4)
+r5=g.islower()
+r6=g.lower()
+print(r5,r6)
+
+l='abc'
+r7=l.isalpha()
+m='123'
+r8=m.isdigit()
+n='abc123'
+r9=n.isalnum()
+print(r7,r8,r9)
+r10=n[-3:].isdigit()
+print(r10)
+
+r11=g.count('E')
+print(r11)
+r12=g.index('E')
+r13=g.find('E')
+print(r12,r13)
+
+r14=g.index('E',3)
+r15=g.index('E',3,8)
+print(r14,r15)
+
+r16=g.rindex('E')
+print(r16)
+
+p='    wel come    '
+r17=p.strip()
+r18=p.lstrip()
+r19=p.rstrip()
+print(r17,r18,r19,sep='\n')
+
+q='[wel[come][]'
+r20=q.strip(']w[e')
+print(r20)
+r21=q.lstrip('W[')
+r22=q.rstrip('][e')
+print(r21,r22)
+r23=g.replace('E','e')
+print(r23)
+
+r24=g.split()
+print(r24)
+r25=g.split('E')
+print(r25)
+
+x=10
+y=20
+z=x+y
+r26='add of x and y is z'
+print(r26)
+r27='add of {} and {} is {}'.format(x,y,z)
+print(r27)
+r28='add of {1} and {0} is {2}'.format(x,y,z)
+print(r28)
+
+
+#python version>3.5
+r29=f'add of {x} and {y} is {z}'
+print(r29)
+
+r30='-'.join(g)
+print(r30)
+r31='xyz'.join(r24)
+print(r31) 
+
+
+O/P:
+
+=================== RESTART: C:\Python Training\bin\str_ex.py ==================
+Person
+Person's
+Person's Height XYZ"
+Person's
+Person's Height XYZ"
+Person
+HelloPY HelloHelloHelloHelloHelloHelloHelloHelloHelloHello
+----------------------------------------
+Person's
+C:\newfolder\test.py
+WEL COME
+8
+E
+EL CO
+EL COME
+WEL CO
+WEL COME
+2284008976560 2284008976560
+EL CO
+E O
+EMOC LEW
+MCL
+
+EL CO
+COME
+COME
+10
+10
+python
+r1=  True
+r2=  True
+True WEL COME
+False wel come
+True True True
+True
+2
+1 1
+7 7
+7
+wel come
+wel come    
+    wel come
+l[com
+wel[come][] [wel[com
+WeL COMe
+['WEL', 'COME']
+['W', 'L COM', '']
+add of x and y is z
+add of 10 and 20 is 30
+add of 20 and 10 is 30
+add of 10 and 20 is 30
+W-E-L- -C-O-M-E
+WELxyzCOME
+>>> 

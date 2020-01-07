@@ -1,0 +1,28 @@
+#tuple->class
+T1=tuple([10,20,30])
+T2=(10,12.5,'Python',['a','b'],(10,20))
+print(T1)
+print(T2)
+print(T2[1])
+print(T2[-4:4:+2])
+i=T2.index('Python')
+c=T2.count(12.5)
+print(i,c)
+
+T=(10,20)
+L=list(T)
+print('L=',L)
+
+L=[30,40]
+T=tuple(L)
+print('T=',T)
+
+
+O/P:
+(10, 20, 30)
+(10, 12.5, 'Python', ['a', 'b'], (10, 20))
+12.5
+(12.5, ['a', 'b'])
+2 1
+L= [10, 20]
+T= (30, 40)

@@ -1,0 +1,43 @@
+#unordered collection
+#no index
+#no key
+#mutable
+#hold only immutable objects
+#UNIQUE VALUES
+
+S={10,10,20,'Python'} #Difference: {key:value} pair= dictionary, comma separated values= Set
+print(S)
+
+#adding
+S.add(30)
+S.add(30)
+print('add=',S)
+
+#remove
+r1=S.remove(10) #only remove, not returning any value so output is None
+print('remove=',r1, S)
+r2=S.pop() #removes the value and returns it.
+print('pop=',r2,S)
+
+S1={10,20,30,40}
+S2={30,40,50,60}
+S3=S1.union(S2)
+print('union=',S3)
+S4=S1.intersection(S2)
+print('intersection=',S4)
+S5=S1.difference(S2) #values present in S1 but not in S2
+S6=S1-S2 #same as difference only in short
+print(S5,S6,sep='\n')
+
+
+O/P:
+=============================== RESTART: C:/Python38/set_ex.py ==============================
+{'Python', 10, 20}
+add= {'Python', 10, 20, 30}
+remove= None {'Python', 20, 30}
+pop= Python {20, 30}
+union= {40, 10, 50, 20, 60, 30}
+intersection= {40, 30}
+{10, 20}
+{10, 20}
+>>> 
