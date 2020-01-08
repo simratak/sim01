@@ -1,0 +1,89 @@
+Database:
+Install DB BROWSER FOR SQLITE-> Open database-> select your database
+
+regex.py
+import sqlite3
+con=sqlite3.connect('mydb.sqlite3') #mydb is the database name
+
+#to connect to any other databases:
+#import pymysql
+#con=pymysql.connect(user='',password='',host='',port='',database='')
+
+#obtaining the cursor to communicate to the database
+cur=con.cursor()
+
+#sql query to create the table
+query='''CREATE TABLE IF NOT EXISTS LOGDATA(
+         IP VARCHAR(100),
+         DATE VARCHAR(100),
+         PICS VARCHAR(100),
+         URL VARCHAR(100))'''
+cur.execute(query)
+
+#to read the website data, urllib is provided
+import urllib.request as u
+myurl='https://www.jafsoft.com/searchengines/log_sample.html'
+F=u.urlopen(myurl)
+
+import re #regular expression
+for line in F:
+    #print(line)
+    #print(type(line))
+    line=line.decode() #decode will convert to string
+    #print(type(line))
+    m=re.match('(\d\d\d\.\d{3}[.]\d{1,3}\.[0-9]{3}).*',line) #match function is expecting second argument as a string to compare with the first argument which is a pattern
+    '''in pattern matching: digit-> \d 
+                            any character-> . -> takes only one character
+                            dot-> \.
+                            repetition of n values-> {n} ->expecting a fixed number of values (in curly brackets, it's the quantity, so quantifier)
+                            {n,m} -> can take any number of digits from n to m
+                            [.] <-any character is that character only
+                            non-digit-> \D
+                            [0-9] <- can be anything between 0 to 9
+                            * <- 0 or more
+                            + <- 1 or more
+                            ? <- 0 or 1
+                            eg's: 1. (abc)* -> strictly abc 0 or more times
+                            2. [abc]{3} -> a or b or c can be matched 3 times
+                            3. r[ea]?d -> will match rd, red, rad
+                            4. r[ea]+d -> will match red, rad, read
+                            '''
+    if m!=None:
+        ip=m.group(1) #grouping the ipn address
+        print(line)
+        print(ip)
+        print('_' * 40)
+
+O/P:
+"C:\Python Training\myvenv1\Scripts\python.exe" "C:/Python Training/bin/regex.py"
+123.123.123.123 - - [26/Apr/2000:00:23:48 -0400] "GET /pics/wpaper.gif HTTP/1.0" 200 6248 "<A HREF="http://www.jafsoft.com/asctortf/">http://www.jafsoft.com/asctortf/</A>" "Mozilla/4.05 (Macintosh; I; PPC)"
+
+123.123.123.123
+________________________________________
+123.123.123.123 - - [26/Apr/2000:00:23:47 -0400] "GET /asctortf/ HTTP/1.0" 200 8130 "<A HREF="http://search.netscape.com/Computers/Data_Formats/Document/Text/RTF">http://search.netscape.com/Computers/Data_Formats/Document/Text/RTF</A>" "Mozilla/4.05 (Macintosh; I; PPC)"
+
+123.123.123.123
+________________________________________
+123.123.123.123 - - [26/Apr/2000:00:23:48 -0400] "GET /pics/5star2000.gif HTTP/1.0" 200 4005 "<A HREF="http://www.jafsoft.com/asctortf/">http://www.jafsoft.com/asctortf/</A>" "Mozilla/4.05 (Macintosh; I; PPC)"
+
+123.123.123.123
+________________________________________
+123.123.123.123 - - [26/Apr/2000:00:23:50 -0400] "GET /pics/5star.gif HTTP/1.0" 200 1031 "<A HREF="http://www.jafsoft.com/asctortf/">http://www.jafsoft.com/asctortf/</A>" "Mozilla/4.05 (Macintosh; I; PPC)"
+
+123.123.123.123
+________________________________________
+123.123.123.123 - - [26/Apr/2000:00:23:51 -0400] "GET /pics/a2hlogo.jpg HTTP/1.0" 200 4282 "<A HREF="http://www.jafsoft.com/asctortf/">http://www.jafsoft.com/asctortf/</A>" "Mozilla/4.05 (Macintosh; I; PPC)"
+
+123.123.123.123
+________________________________________
+123.123.123.123 - - [26/Apr/2000:00:23:51 -0400] "GET /cgi-bin/newcount?jafsof3&amp;width=4&amp;font=digital&amp;noshow HTTP/1.0" 200 36 "<A HREF="http://www.jafsoft.com/asctortf/">http://www.jafsoft.com/asctortf/</A>" "Mozilla/4.05 (Macintosh; I; PPC)"
+
+123.123.123.123
+________________________________________
+123.123.123.123 to protect
+
+123.123.123.123
+________________________________________
+
+Process finished with exit code 0
+

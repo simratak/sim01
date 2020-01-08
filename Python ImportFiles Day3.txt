@@ -1,0 +1,137 @@
+Inside lib: 
+addmodule.py
+
+#module is a collection of definitions
+
+msg='Module Demo'
+def add(a,b):
+    return a+b
+if __name__=='__main__': #(the if statement is given for; when executing some other file, you don't want to run this block i.e this block will not be executed)
+    print('xyz=',msg)
+    print('name=',__name__) #execute this file:- o/p: __main__
+                            #we are not creating the 'name' variable anywhere but when python file is created it automatically creates a variable
+
+
+
+mainprog.py
+
+#to make use of variables and functions from another file, first statement is import
+#I) FOR IMPORTING- set the environment variable: windows->edit the environment->new system settings
+
+#1st way to import
+import addmodule #first it searches the file, execute it, then make available in this file
+print(addmodule.msg)
+print(addmodule.add(10,20))
+line='-'*40
+print(line)
+
+#II) FOR IMPORTING
+import sys
+print(sys.path)
+#sys.path.append (r'C:\Python Training\lib')
+#then-> import addmodule -> which will create all the objects
+
+#2nd way; aliasing a name
+import addmodule as a
+print(a.msg)
+print(a.add(10,20))
+print(line)
+
+#3rd way
+from addmodule import msg,add
+print(msg)
+print(add(10,20))
+print(line)
+
+#4th way with aliasing
+from addmodule import msg as m, add as a
+print(m)
+print(a(10,20))
+print(line)
+
+#5th way
+from addmodule import *
+print(msg)
+print(add(10,20))
+print(line)
+
+O/P:
+Module Demo
+30
+----------------------------------------
+['C:\\Python Training\\bin', 'C:\\Python Training', 'C:\\Python Training\\lib', 'C:\\Python38\\python38.zip', 'C:\\Python38\\DLLs', 'C:\\Python38\\lib', 'C:\\Python38', 'C:\\Python Training\\myvenv1', 'C:\\Python Training\\myvenv1\\lib\\site-packages']
+Module Demo
+30
+----------------------------------------
+Module Demo
+30
+----------------------------------------
+Module Demo
+30
+----------------------------------------
+Module Demo
+30
+----------------------------------------
+
+
+
+
+
+Inside lib: -> new directory 'project' -> in project new directory 'net' -> addmodule.py
+#module is a collection of definitions
+
+msg='Module Demo'
+def add(a,b):
+    return a+b
+if __name__=='__main__': #(the if statement is given for; when executing some other file, you don't want to run this block i.e this block will not be executed)
+    print('xyz=',msg)
+    print('name=',__name__) #execute this file:- o/p: __main__
+                            #we are not creating the 'name' variable anywhere but when python file is created it automatically creates a variable
+
+
+
+mainprog.py
+lines='_'*40
+print(lines)
+import project.net.addmodule
+print(project.net.addmodule.msg)
+print(lines)
+
+import project.net.addmodule as a
+print(a.msg)
+print(lines)
+
+from project.net.addmodule import msg,add
+print(msg)
+print(lines)
+
+O/P:
+
+________________________________________
+Module Demo
+________________________________________
+Module Demo
+________________________________________
+Module Demo
+________________________________________
+
+
+
+
+
+create a __init__.py file in net directory; then run the mainprog.py 
+#init file is searched first in all the directories and all the init files are first executed
+O/P:
+________________________________________
+Inside init
+Module Demo
+________________________________________
+Module Demo
+________________________________________
+Module Demo
+________________________________________
+
+
+
+
+

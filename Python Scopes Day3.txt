@@ -1,0 +1,38 @@
+x=10
+def f1(): #f1 also an function object pointing to 20
+    x=20 #variable in "enclosed" scope, local to that function and inner function will be able to access
+    def f2(): #defined inside f1 so can call inside f1
+              #if you want to access outside f1-> return f2
+        #x=30 #"local" scope variable
+
+        #nonlocal x #will refer to the x defined in the function f1 and update it, will be used only for this function i.e f2
+        #x=200 #nonlocal will refer to the enclosed scope variable
+
+                '''if there are 3 functions: names should be different if want to access f1 from f3 because it will always take the immediate variable i.e the previous functions variable
+                    f1()
+                        x
+                        f2()
+                            y
+                            f3()
+                                nonlocal x'''
+
+
+                global x #to access the global variable
+                x=300
+
+        #y=x #this will directly access the global variable, you don't need to write 'global'
+
+                print('x(F2)=',x)
+    f2()
+    print('x(F1)=',x)
+f1()
+print('x(Global)=',x)
+
+#local, enclosed, global, built-in
+print(dir(__builtins__)) #printing the built-in classes, functions, etc.
+
+O/P:
+x(F2)= 300
+x(F1)= 20
+x(Global)= 300
+['ArithmeticError', 'AssertionError', 'AttributeError', 'BaseException', 'BlockingIOError', 'BrokenPipeError', 'BufferError', 'BytesWarning', 'ChildProcessError', 'ConnectionAbortedError', 'ConnectionError', 'ConnectionRefusedError', 'ConnectionResetError', 'DeprecationWarning', 'EOFError', 'Ellipsis', 'EnvironmentError', 'Exception', 'False', 'FileExistsError', 'FileNotFoundError', 'FloatingPointError', 'FutureWarning', 'GeneratorExit', 'IOError', 'ImportError', 'ImportWarning', 'IndentationError', 'IndexError', 'InterruptedError', 'IsADirectoryError', 'KeyError', 'KeyboardInterrupt', 'LookupError', 'MemoryError', 'ModuleNotFoundError', 'NameError', 'None', 'NotADirectoryError', 'NotImplemented', 'NotImplementedError', 'OSError', 'OverflowError', 'PendingDeprecationWarning', 'PermissionError', 'ProcessLookupError', 'RecursionError', 'ReferenceError', 'ResourceWarning', 'RuntimeError', 'RuntimeWarning', 'StopAsyncIteration', 'StopIteration', 'SyntaxError', 'SyntaxWarning', 'SystemError', 'SystemExit', 'TabError', 'TimeoutError', 'True', 'TypeError', 'UnboundLocalError', 'UnicodeDecodeError', 'UnicodeEncodeError', 'UnicodeError', 'UnicodeTranslateError', 'UnicodeWarning', 'UserWarning', 'ValueError', 'Warning', 'WindowsError', 'ZeroDivisionError', '__build_class__', '__debug__', '__doc__', '__import__', '__loader__', '__name__', '__package__', '__spec__', 'abs', 'all', 'any', 'ascii', 'bin', 'bool', 'breakpoint', 'bytearray', 'bytes', 'callable', 'chr', 'classmethod', 'compile', 'complex', 'copyright', 'credits', 'delattr', 'dict', 'dir', 'divmod', 'enumerate', 'eval', 'exec', 'exit', 'filter', 'float', 'format', 'frozenset', 'getattr', 'globals', 'hasattr', 'hash', 'help', 'hex', 'id', 'input', 'int', 'isinstance', 'issubclass', 'iter', 'len', 'license', 'list', 'locals', 'map', 'max', 'memoryview', 'min', 'next', 'object', 'oct', 'open', 'ord', 'pow', 'print', 'property', 'quit', 'range', 'repr', 'reversed', 'round', 'set', 'setattr', 'slice', 'sorted', 'staticmethod', 'str', 'sum', 'super', 'tuple', 'type', 'vars', 'zip']

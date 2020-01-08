@@ -1,0 +1,311 @@
+1. funcs_1.py 
+#creating functions for code reusability
+#can call the functions 0 or more times
+def add():
+    a=10
+    b=20
+    c=a+b
+    print('c=',c)
+
+add()
+add()
+
+def get_ips():
+    F=open(r'C:\Python Training\log\Server Log.txt')
+    ips=[line.split()[0] for line in F if line[:3].isdigit()]
+    print('ips=',ips)
+
+get_ips()
+print('ips=',ips) #function block does not allow access to an object inside the function from outside the function
+
+O/P:
+c= 30
+c= 30
+ips= ['123.123.123.123', '123.123.123.123', '123.123.123.123', '123.123.123.123', '123.123.123.123', '123.123.123.123']
+Traceback (most recent call last):
+  File "C:/Python Training/bin/funcs_1.py", line 18, in <module>
+    print('ips=',ips)
+NameError: name 'ips' is not defined
+
+
+
+2. funcs_2.py 
+def add():
+    a=10
+    b=20
+    c=a+b
+    #return c #if you want to send something outside the function block use return. here, c is accessed outside the function block
+    #print('after return') #after the return statement, no code will execute
+    #return
+    #return a,b,c #returning a tuple of elements
+    #return [a, b, c] #to return as a list
+    return (a+b)/(a-b) #can return an expression
+
+add()
+r1=add() #to catch the object, assign it to a variable
+#now c is gone, only r1 is accessable
+#if function not returning any value, default value is 'none'
+print('r1=',r1)
+
+O/P:
+r1= -3.0
+
+
+
+3. funcs_3.py  
+#Can send arguments to a function
+
+#Positional Argument
+#Since, first element goes to first argument, second to second, and so on
+def add(a,b):
+    return a+b
+
+c=add(10,20)
+print('c=',c)
+
+def get_ips(file_path,mode):
+    F = open(file_path)
+    if file_path.endswith('.csv'):
+        ips=[line.split(',')[0] for line in F]
+        return ips
+    else:
+        ips=[line.split()[0] for line in F]
+        return ips
+
+r=get_ips('log_report.txt','r')
+print('r=',r)
+
+O/P:
+c= 30
+r= ['IP', '123.123.123.123', '123.123.123.123', '123.123.123.123', '123.123.123.123', '123.123.123.123', '123.123.123.123']
+
+
+
+4. funcs_4.py  
+#Can send arguments to a function
+
+#Positional Argument with default values
+def add(a,b=10):
+    return a+b
+
+c=add(10)    #if passing an argument, it will take that value
+             #in case of missing arguments, it will take the default value
+print('c=',c)
+
+def get_ips(file_path, mode='r'):
+    F = open(file_path)
+    if file_path.endswith('.csv'):
+        ips=[line.split(',')[0] for line in F]
+        return ips
+    else:
+        ips=[line.split()[0] for line in F]
+        return ips
+
+r=get_ips('log_report.txt','r')
+print('r=',r)
+
+O/P:
+c= 20
+r= ['IP', '123.123.123.123', '123.123.123.123', '123.123.123.123', '123.123.123.123', '123.123.123.123', '123.123.123.123']
+
+
+
+5. funcs_5.py 
+#Variable Arguments
+
+def add(a,b=10,*c): #minimum value to pass->1, maximum value to pass-> n, can pass any number of arugments i.e the first one will go to a and the rest to c eg: 100 arguments passed, 1 to a; 2 to b; 98 to c
+                    #keeps the extra arguments in a tuple
+    print('Extra arguments passed=',c)
+    r=a+b+sum(c) #sum is a pre-defined built-in function
+    return r
+
+res1=add(10)
+print('res1=',res1)
+print('-'*40)
+res2=add(10,20,30,40,50) #10 to a; 20 to b; 30,40,50 to c
+print('res2=',res2)
+print('-'*40)
+
+def telnet(host=None,port=None, *cmds): #we're "packing" the commands into a tuple
+    import subprocess
+    result=[]
+    for each_cmd in cmds:
+        r=subprocess.check_output(each_cmd, shell=True) #check_output executes the command
+        result.append(r)
+    return result
+
+r=telnet(0,0,'dir','type log_report.csv')
+print('r=',r)
+print('-'*40)
+F=open('cmd_out.txt','w')
+r=[line.decode() for line in r] #decode is a built-in function to convert bytes to string
+F.writelines(r)
+F.close()
+
+c=['dir','type log_report.txt'] #c is a list of commands in another file
+r=telnet(0,0,*c) #"unpacking"; will send individual elements one by one
+
+O/P:
+Extra arguments passed= ()
+res1= 20
+----------------------------------------
+Extra arguments passed= (30, 40, 50)
+res2= 150
+----------------------------------------
+r= [b' Volume in drive C has no label.\r\n Volume Serial Number is 66BA-427A\r\n\r\n Directory of C:\\Python Training\\bin\r\n\r\n01/07/2020  10:02 PM    <DIR>          .\r\n01/07/2020  10:02 PM    <DIR>          ..\r\n01/07/2020  09:51 PM             2,019 cmd_out.txt\r\n01/07/2020  08:15 PM               918 comprehensions.py\r\n01/06/2020  03:14 AM               573 dictionary_ex.py\r\n01/07/2020  12:44 AM               381 eval_ex.py\r\n01/07/2020  01:36 AM             3,336 file_ops.py\r\n01/06/2020  10:47 PM             1,908 for_ex.py\r\n01/07/2020  08:28 PM               446 funcs_1.py\r\n01/07/2020  08:40 PM               600 funcs_2.py\r\n01/07/2020  08:53 PM               483 funcs_3.py\r\n01/07/2020  08:58 PM               561 funcs_4.py\r\n01/07/2020  10:02 PM             1,198 funcs_5.py\r\n01/06/2020  09:04 PM             1,337 if_ex.py\r\n01/06/2020  01:44 AM             1,173 list_ex.py\r\n01/07/2020  07:52 PM               493 log_report.csv\r\n01/07/2020  07:52 PM               498 log_report.txt\r\n01/05/2020  10:26 PM               506 num_ex.py\r\n01/07/2020  01:55 AM                34 out1.txt\r\n01/07/2020  01:55 AM                18 out2.csv\r\n01/07/2020  02:22 AM             1,139 process_log.py\r\n01/06/2020  01:03 AM             1,749 str_ex.py\r\n01/05/2020  08:35 PM                26 test.py\r\n01/06/2020  02:58 AM               267 tuple_ex.py\r\n01/06/2020  11:20 PM               979 while_ex.py\r\n              23 File(s)         20,642 bytes\r\n               2 Dir(s)  798,507,229,184 bytes free\r\n', b'IP, DATE, PICS, URL\r\n123.123.123.123,26/Apr/2000,wpaper.gif,http://www.jafsoft.com/asctortf/\r\n123.123.123.123,26/Apr/2000,No Image,http://search.netscape.com/Computers/Data_Formats/Document/Text/RTF\r\n123.123.123.123,26/Apr/2000,5star2000.gif,http://www.jafsoft.com/asctortf/\r\n123.123.123.123,26/Apr/2000,5star.gif,http://www.jafsoft.com/asctortf/\r\n123.123.123.123,26/Apr/2000,a2hlogo.jpg,http://www.jafsoft.com/asctortf/\r\n123.123.123.123,26/Apr/2000,No Image,http://www.jafsoft.com/asctortf/\r\n']
+---------------------------------------
+
+In the cmd_out.txt file:
+ Volume in drive C has no label.
+
+ Volume Serial Number is 66BA-427A
+
+
+
+ Directory of C:\Python Training\bin
+
+
+
+01/07/2020  10:02 PM    <DIR>          .
+
+01/07/2020  10:02 PM    <DIR>          ..
+
+01/07/2020  09:51 PM             2,019 cmd_out.txt
+
+01/07/2020  08:15 PM               918 comprehensions.py
+
+01/06/2020  03:14 AM               573 dictionary_ex.py
+
+01/07/2020  12:44 AM               381 eval_ex.py
+
+01/07/2020  01:36 AM             3,336 file_ops.py
+
+01/06/2020  10:47 PM             1,908 for_ex.py
+
+01/07/2020  08:28 PM               446 funcs_1.py
+
+01/07/2020  08:40 PM               600 funcs_2.py
+
+01/07/2020  08:53 PM               483 funcs_3.py
+
+01/07/2020  08:58 PM               561 funcs_4.py
+
+01/07/2020  10:02 PM             1,198 funcs_5.py
+
+01/06/2020  09:04 PM             1,337 if_ex.py
+
+01/06/2020  01:44 AM             1,173 list_ex.py
+
+01/07/2020  07:52 PM               493 log_report.csv
+
+01/07/2020  07:52 PM               498 log_report.txt
+
+01/05/2020  10:26 PM               506 num_ex.py
+
+01/07/2020  01:55 AM                34 out1.txt
+
+01/07/2020  01:55 AM                18 out2.csv
+
+01/07/2020  02:22 AM             1,139 process_log.py
+
+01/06/2020  01:03 AM             1,749 str_ex.py
+
+01/05/2020  08:35 PM                26 test.py
+
+01/06/2020  02:58 AM               267 tuple_ex.py
+
+01/06/2020  11:20 PM               979 while_ex.py
+
+              23 File(s)         20,642 bytes
+
+               2 Dir(s)  798,507,229,184 bytes free
+
+IP, DATE, PICS, URL
+
+123.123.123.123,26/Apr/2000,wpaper.gif,http://www.jafsoft.com/asctortf/
+
+123.123.123.123,26/Apr/2000,No Image,http://search.netscape.com/Computers/Data_Formats/Document/Text/RTF
+
+123.123.123.123,26/Apr/2000,5star2000.gif,http://www.jafsoft.com/asctortf/
+
+123.123.123.123,26/Apr/2000,5star.gif,http://www.jafsoft.com/asctortf/
+
+123.123.123.123,26/Apr/2000,a2hlogo.jpg,http://www.jafsoft.com/asctortf/
+
+123.123.123.123,26/Apr/2000,No Image,http://www.jafsoft.com/asctortf/
+
+
+
+6. funcs_6.py
+#keyword only arguments
+
+def add(a,b=10,*c,d,e): # if you pass 100 arguments, 1st to a; 2nd to b, rest to c; it eill not go to d and e
+                        #before the * element positional argument, after the * element keyword argument
+    r=a+b+sum(c)+d+e
+    return r
+
+res= add (10,20,30,40,50,e=60,d=70) #need to mention the name with the value to pass the argument
+                                    #will show error if no d and e is passed because no default value is passed
+                                    #if default value is passed, it is not required to pass d and e
+                                    #d and e can be passed in any order
+print(res)
+print('-'*40)
+
+def telnet(*cmds,h=None,p=None):
+    return 'Hello'
+
+res2=telnet()
+res3=telnet('dir')
+print(res2,res3,sep='\n')
+res4=telnet('div',p=1,h=2)
+print(res4)
+print('-'*40)
+
+#function taking only keyword arguments
+# def telnet(*,h,p): Make the first argument as *
+
+O/P:
+280
+----------------------------------------
+Hello
+Hello
+Hello
+----------------------------------------
+
+
+
+7. funcs_7.py
+#variable keyword only argument
+
+def add(a,b=10,*c,d,e,**f): # *c is to capture extra variable positional arguments and **f is to capture extra variable keyword only arguments
+                            #c captures positional arguments elements in a tuple and f captures variable keyword only arguments in a dictionary because it needs to store the variable as well as the value
+    print('Extra keyword only arguments=',f)
+    r=a+b+sum(c)+d+e+sum(f.values())
+    return r
+
+r1=add(10,d=20,e=30)
+print('r1=',r1)
+print('-'*40)
+r2=add(10,20,30,40,50,d=60,e=70,x=80,y=90)
+print('r2=',r2)
+print('-'*40)
+
+D={'d':50,'e':60,'x':70}
+res3=add(10,20,30,40,**D) #10 to a; 20 to b; 30,40 to c
+print('res3=',res3)
+print('-'*40)
+
+O/P:
+Extra keyword only arguments= {}
+r1= 70
+----------------------------------------
+Extra keyword only arguments= {'x': 80, 'y': 90}
+r2= 450
+----------------------------------------
+Extra keyword only arguments= {'x': 70}
+res3= 280
+----------------------------------------
+
+
+
+
