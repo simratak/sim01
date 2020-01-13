@@ -1,0 +1,72 @@
+#when there are many functions having the same lines of code; the same lines of code is wriiten in a common funtion with the help of decorator pattern
+def add1(a,b):
+    print('Result is: ')
+    print(a+b+a)
+    print('End of Result')
+    print('_'*40)
+def sub1(a,b):
+    print('Result is: ')
+    print(a-b)
+    print('End of Result')
+    print('_' * 40)
+add1(10,20)
+sub1(10,20)
+
+#MyDecorator
+def mydec(func):
+    #def decorated_func(x,y): #for only 2 arguments
+    def decorated_func(*x, **y): #x=(10,20,30) y={} #can omit y, but then can't pass keyword only arguments
+        print('Result is: ')
+        #func(x,y) #for only 2 arguments
+        func(*x, **y) #func(10,20,30)
+        print('End of Result')
+        print('_' * 40)
+    return decorated_func
+
+@mydec
+def add2(a,b):
+    print(a+b+b)
+add2(10,20)
+
+#How @mydec works?:-
+def add3(a,b):
+    print(a+b)
+
+f=mydec(add3) #f calling the function manually
+              #f pointing to decorated_func
+f(100,200)
+print(f) #reference to a function object; will print the reference
+print('_' * 40)
+
+@mydec
+def add4(a,b,c):
+    print(a+b+c)
+add4(10,20,30)
+
+
+O/P:
+"C:\Python Training\myvenv1\Scripts\python.exe" "C:/Python Training/bin/decorators.py"
+Result is: 
+40
+End of Result
+________________________________________
+Result is: 
+-10
+End of Result
+________________________________________
+Result is: 
+50
+End of Result
+________________________________________
+Result is: 
+300
+End of Result
+________________________________________
+<function mydec.<locals>.decorated_func at 0x000001A02B92E430>
+________________________________________
+Result is: 
+60
+End of Result
+________________________________________
+
+Process finished with exit code 0

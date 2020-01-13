@@ -1,0 +1,83 @@
+
+L=[100,200,300,400]
+
+#map
+def sub(i):
+    return i-10
+r1=map(sub,L) #will take one element from L pass it to sub funtion and execute it
+print('Map_ex:', list(r1))
+print('_'*40)
+
+#filter; to filter out elements
+def filt(j):
+    return j>100
+r2=filter(filt,L) #will take one element from L pass it to filt funtion and if return value is true print, if false exit
+print('Filter_ex:', list(r2))
+print('_'*40)
+
+#reduce # not in built-in, part of a standard library
+import functools as fc
+def red(p,q):
+    return p+q
+r3=fc.reduce(red,L) #takes 2 elements from the list at a time and adds it
+print('Reduce_ex:', r3)
+print('_'*40)
+M=['W','E','L']
+r4=fc.reduce(red,M)
+print('Reduce_ex:', r4)
+print('_'*40)
+
+#lambda functions
+#1. functions without a name
+#2. function body should have a single line
+#Advantage: can embed inside function arguments, list comprehensions, tuple comprehensions, dictionary
+r5=map(lambda i:i-10,L)
+print('Lambda_ex:',list(r5))
+print('_'*40)
+r6=filter(lambda j:j>100,L)
+print('Lambda_ex:',list(r6))
+print('_'*40)
+r7=fc.reduce(lambda p,q:p+q,L)
+print('Lambda_ex:',r7)
+print('_'*40)
+
+f=lambda a,b:a+b
+r8=f(10,20)
+print('Lambda_ex: r8=',r8)
+print('_'*40)
+
+L=[(lambda i:i*i)(a) for a in range(10)]
+print('Lambda_ex: L=',L)
+print('_'*40)
+
+keys=['A','B']
+values=[10,20]
+D={k:(lambda i:i+i)(v) for k,v in zip(keys,values)}
+print('Lambda_ex: D=',D)
+print('_'*40)
+
+
+O/P:
+"C:\Python Training\myvenv1\Scripts\python.exe" "C:/Python Training/bin/builtins_ex.py"
+Map_ex: [90, 190, 290, 390]
+________________________________________
+Filter_ex: [200, 300, 400]
+________________________________________
+Reduce_ex: 1000
+________________________________________
+Reduce_ex: WEL
+________________________________________
+Lambda_ex: [90, 190, 290, 390]
+________________________________________
+Lambda_ex: [200, 300, 400]
+________________________________________
+Lambda_ex: 1000
+________________________________________
+Lambda_ex: r8= 30
+________________________________________
+Lambda_ex: L= [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+________________________________________
+Lambda_ex: D= {'A': 20, 'B': 40}
+________________________________________
+
+Process finished with exit code 0
