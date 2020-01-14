@@ -1,0 +1,27 @@
+import assign_1_func1 as af
+while True:
+    i=input('Enter ID:')
+    i=eval(i)
+    L=[10,20,30]
+    r=af.dev_id_search(i,L)
+    print('Result:',r)
+    ch=input('Quit(y/n)?:')
+    if ch=='y':
+        break
+
+O/P:
+"C:\Users\lab365\Desktop\Python programming\myvenv1\Scripts\python.exe" C:/Users/lab365/Desktop/python/bin/assignmt_1_using_module.py
+Enter ID:4
+Result: Value not found, next highest value-> Index: 0, Value: 10
+Quit(y/n)?:n
+Enter ID:5
+Result: Value not found, next highest value-> Index: 0, Value: 10
+Quit(y/n)?:n
+Enter ID:10
+Result: Found at index: 0
+Quit(y/n)?:n
+Enter ID:20
+Result: Found at index: 1
+Quit(y/n)?:y
+
+Process finished with exit code 0
