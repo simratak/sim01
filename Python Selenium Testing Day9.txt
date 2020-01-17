@@ -1,0 +1,83 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+browser=webdriver.Chrome() #opening browser
+browser.get('http://192.168.3.209:8080/login') #typing url
+user_field=browser.find_element_by_name('uname') #find username field
+pass_field=browser.find_element_by_name('pw') #find password field
+user_field.send_keys('abc') #type username
+pass_field.send_keys('xyz') #type password
+pass_field.send_keys(Keys.RETURN) #press enter
+try:
+    assert 'log' in browser.title #verify
+    print('Test case success')
+except AssertionError:
+    print('Test case failed')
+finally:
+    import time
+    time.sleep(2)
+    browser.close()
+
+import unittest
+class MyTests(unittest.TestCase):
+    def setUp(self):
+        self.browser=webdriver.Chrome()
+        print('In setup...')
+    def test_testcase1(self):
+        browser= self.browser
+        browser.get('http://192.168.3.209:8080/login')
+        user_field = browser.find_element_by_name('uname')
+        pass_field = browser.find_element_by_name('pw')
+        user_field.send_keys('abc')
+        pass_field.send_keys('xyz')
+        pass_field.send_keys(Keys.RETURN)
+        assert 'log' in browser.title
+        print('Test case 1 pass')
+    def test_testcase2(self):
+        browser= self.browser
+        browser.get('http://192.168.3.209:8080/login')
+        user_field = browser.find_element_by_name('uname')
+        pass_field = browser.find_element_by_name('pw')
+        user_field.send_keys('abc')
+        pass_field.send_keys('xyz')
+        pass_field.send_keys(Keys.RETURN)
+        assert 'log' in browser.title
+        print('Test case 2 pass')
+    def test_testcase3(self):
+        browser= self.browser
+        browser.get('http://192.168.3.209:8080/login')
+        user_field = browser.find_element_by_name('uname')
+        pass_field = browser.find_element_by_name('pw')
+        user_field.send_keys('abc')
+        pass_field.send_keys('xyz')
+        pass_field.send_keys(Keys.RETURN)
+        assert 'log' in browser.title
+        print('Test case 3 pass')
+    def tearDown(self):
+        print('In tearDown..')
+        import time
+        time.sleep(2)
+        self.browser.close()
+
+if __name__ == '__main__':
+    unittest.main()
+
+O/P:
+C:\Users\lab365\Desktop\satish_python\env\myvenv1\Scripts\python.exe C:/Users/lab365/Desktop/satish_python/bin/sel_testing.py
+Test case success
+In setup...
+Test case 1 pass
+In tearDown..
+.In setup...
+Test case 2 pass
+In tearDown..
+.In setup...
+Test case 3 pass
+In tearDown..
+.
+----------------------------------------------------------------------
+Ran 3 tests in 15.416s
+
+OK
+
+Process finished with exit code 0

@@ -1,0 +1,109 @@
+a=10
+b=0
+try:
+    r=a/b
+    print('r=',r)
+except:
+    print('Some Error')
+print('_'*40)
+
+D={}
+try:
+    print(D['A'])
+    r2= a/b
+    print('r2=',r2)
+except ZeroDivisionError:
+    print('In ZeroDivisionError')
+except NameError as n:
+    print('NameError=',n)
+except (KeyError,IndexError):
+    print('KeyError or IndexError')
+print('_'*40)
+
+L=[]
+try:
+    print(L[1])
+except Exception as e:
+    print('e=',e)
+    print('type=',type(e))
+print('_'*40)
+
+c=10
+d=10
+try:
+    r=c/d
+except: #if there is an error-> except (NOTE: except OR else: any one will execute, not both)
+    print('In except')
+else: #if there is no error->else
+    r=c/c
+    print('In else')
+print('_'*40)
+
+try:
+    r=c/d
+except:
+    print('In except')
+finally: #will be executed every time; even if there is an error
+    print('In finally')
+print('_'*40)
+#try-finally
+#try-except-fnally
+#try-except-else-finally
+
+e=10
+f=0
+try:
+    if f==0:
+        raise ZeroDivisionError #for user defined exceptions- use raise
+    print('Statement-100')
+    r=e/f #after executing previous statements, error arises
+except ZeroDivisionError:
+    print('From raise')
+print('_'*40)
+
+result='Test-case failed'
+try:
+    assert 'success' in result,'some test failed' #if condition true->next line; if false assert will raise error
+    print('Test case Success')
+except AssertionError as ae:
+    print('AssertionError=',ae)
+print('_'*40)
+
+#user-defined exceptions should be sub-class of any exception class->mandatory
+class MyError(Exception):
+    def __init__(self,m):
+        self.msg=m
+    def __str__(self):
+        return 'Error Details: ' +self.msg
+
+try:
+    if 'success' not in result:
+        raise MyError('Test Failed')
+    else:
+        print('Execution Success')
+except MyError as me:
+    print('MyError=',me)
+print('_'*40)
+
+
+O/P:
+C:\Users\lab365\Desktop\satish_python\env\myvenv1\Scripts\python.exe C:/Users/lab365/Desktop/satish_python/bin/exceptions.py
+Some Error
+________________________________________
+KeyError or IndexError
+________________________________________
+e= list index out of range
+type= <class 'IndexError'>
+________________________________________
+In else
+________________________________________
+In finally
+________________________________________
+From raise
+________________________________________
+AssertionError= some test failed
+________________________________________
+MyError= Error Details: Test Failed
+________________________________________
+
+Process finished with exit code 0
